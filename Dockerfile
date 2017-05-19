@@ -1,7 +1,7 @@
 FROM java:openjdk-8-jre
 MAINTAINER sundyli <543950155@qq.com>
 
-ARG VERSION=3.4.10
+ARG version=3.4.10
 WORKDIR /opt/zookeeper
 
 EXPOSE 2181 2888 3888
