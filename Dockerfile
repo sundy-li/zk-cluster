@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM java:openjdk-8-jre
 MAINTAINER sundyli <543950155@qq.com>
 
 ARG VERSION=3.4.10
@@ -8,13 +8,7 @@ EXPOSE 2181 2888 3888
 
 
 ##download install
-RUN apk add --no-cache \
-    bash \
-    su-exec
-
 RUN set -x \
-    && apk add --no-cache --virtual .build-deps \
-        gnupg \
     && apt-get install -y wget tar \
 	&& wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-${version}/zookeeper-${version}.tar.gz \
 	&& tar  -C /opt/zookeeper --strip-components=1 -xzvf zookeeper-${version}.tar.gz \
