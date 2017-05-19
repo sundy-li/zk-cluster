@@ -18,8 +18,8 @@ RUN set -x \
 
 ##default config
 ENV tickTime=2000
-ENV dataDir=/data/zookeeper/
-ENV dataLogDir=/var/log/zookeeper/
+ENV dataDir=/data/db/
+ENV dataLogDir=/data/log/
 ENV clientPort=2181
 ENV initLimit=5
 ENV syncLimit=2
@@ -28,4 +28,4 @@ ENV syncLimit=2
 ADD entrypoint.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["/usr/share/zookeeper/entrypoint.sh"]
+ENTRYPOINT ["/opt/zookeeper/entrypoint.sh"]
