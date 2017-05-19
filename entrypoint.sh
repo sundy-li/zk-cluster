@@ -19,7 +19,7 @@ ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"initLimit=$initLimit"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"syncLimit=$syncLimit"
 
 zkHosts=(`echo $ZK_SERVERS  | awk -F, 'OFS=" "{$1=$1;print $0}'`)
-for index in ${zkHosts[@]}
+for index in ${!zkHosts[@]}
 do
     ZKID=$(($index+1))
     ZKIP=${zkHosts[index]}
