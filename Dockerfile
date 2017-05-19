@@ -6,8 +6,16 @@ WORKDIR /opt/zookeeper
 
 EXPOSE 2181 2888 3888
 
+
 ##download install
-RUN apt-get install -y wget tar \
+RUN apk add --no-cache \
+    bash \
+    su-exec
+
+RUN set -x \
+    && apk add --no-cache --virtual .build-deps \
+        gnupg \
+    && apt-get install -y wget tar \
 	&& wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-${version}/zookeeper-${version}.tar.gz \
 	&& tar  -C /opt/zookeeper --strip-components=1 -xzvf zookeeper-${version}.tar.gz \
 	&& rm zookeeper-${version}.tar.gz \
