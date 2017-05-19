@@ -25,3 +25,5 @@ do
     ZKIP=${ZOOKEEPER_SERVERS_ARRAY[index]}
     ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"server.$ZKID=$ZKIP:2888:3888"
 done
+echo "$ZOOKEEPER_CONFIG" > conf/zoo.cfg
+/bin/bash bin/zkServer.sh start-foreground
