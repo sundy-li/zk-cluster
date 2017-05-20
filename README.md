@@ -16,5 +16,5 @@ docker run --net host --name zk \
 	-p 3888:3888 \
 	-v /data/db/zk:/data/db/ \
 	-v /data/logs/zk:/var/log/ \
-	-d sundyli/zk-cluster  ${id} lp2,lp3,lp4 
+	-d sundyli/zk-cluster  ${id} ${servers}
 ```
