@@ -18,11 +18,12 @@ ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"clientPort=$clientPort"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"initLimit=$initLimit"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"syncLimit=$syncLimit"
 
-zkHosts=(`echo $ZK_SERVERS  | awk -F, 'OFS=" "{$1=$1;print $0}'`)
-for index in ${!zkHosts[@]}
+zkHosts=`echo $ZK_SERVERS  | awk -F, 'OFS=" "{$1=$1;print $0}'`
+index=0
+for ZKIP in ${zkHosts}
 do
+	index=$[index+1]
     ZKID=$(($index+1))
-    ZKIP=${zkHosts[index]}
     ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"server.$ZKID=$ZKIP:2888:3888"
 done
 echo "$ZOOKEEPER_CONFIG" > conf/zoo.cfg
