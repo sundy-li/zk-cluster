@@ -1,6 +1,8 @@
 # zk-cluster
 zk-cluster for docker
 
+## docker-hub
+	https://hub.docker.com/r/sundyli/zk-cluster/
 
 ## usage
 	- dataDir: /data/db/
@@ -14,5 +16,5 @@ docker run --net host --name zk \
 	-p 3888:3888 \
 	-v /data/db/zk:/data/db/ \
 	-v /data/logs/zk:/var/log/ \
-	-d registry.cn-hangzhou.aliyuncs.com/truxing/zk  ${id} lp2,lp3,lp4 
+	-d sundyli/zk-cluster  ${id} lp2,lp3,lp4 
 ```
