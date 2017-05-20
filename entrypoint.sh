@@ -18,13 +18,18 @@ ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"clientPort=$clientPort"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"initLimit=$initLimit"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"syncLimit=$syncLimit"
 
-echo "$ZOOKEEPER_CONFIG" > conf/zoo.cfg
-
-index=0
-echo $ZK_SERVERS  |  awk -F, '{for(i=1;i<=NF;i++){print $i}}' | while read zkip
+# Put all ZooKeeper server IPs into an array:
+IFS=', ' read -r -a ZOOKEEPER_SERVERS_ARRAY <<< "$ZK_SERVERS"
+export ZOOKEEPER_SERVERS_ARRAY=$ZOOKEEPER_SERVERS_ARRAY
+# now append information on every ZooKeeper node in the ensemble to the ZooKeeper config:
+for index in "${!ZOOKEEPER_SERVERS_ARRAY[@]}"
 do
-	index=$[index+1]
-    echo "server.$index=$zkip:2888:3888"  >> conf/zoo.cfg
+    ZKID=$(($index+1))
+    ZKIP=${ZOOKEEPER_SERVERS_ARRAY[index]}
+    ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"server.$ZKID=$ZKIP:2888:3888"
 done
+# Finally, write config file:
+echo "$ZOOKEEPER_CONFIG" | tee conf/zoo.cfg
 
+# start the server:
 /bin/bash bin/zkServer.sh start-foreground
