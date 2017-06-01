@@ -9,7 +9,7 @@ mkdir -p $dataLogDir
 
 echo "${ZK_ID}" > $dataDir/myid
 #build zookeeper config file
-ZOOKEEPER_CONFIG=
+export ZOOKEEPER_CONFIG=""
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"tickTime=$tickTime"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"dataDir=$dataDir"
 ZOOKEEPER_CONFIG="$ZOOKEEPER_CONFIG"$'\n'"dataLogDir=$dataLogDir"
